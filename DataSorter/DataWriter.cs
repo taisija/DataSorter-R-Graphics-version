@@ -46,10 +46,10 @@ namespace DataSorter
         {
             int len = Data.Length;
             double[][] newData = Data;
-            int newlen = newData[0].Length;
+            //int newlen = newData[0].Length;
             try
             {
-                using (TextWriter writer = File.CreateText(fileName))
+               /* using (TextWriter writer = File.CreateText(fileName))
                 {
                     for (int i = 0; i < len; i++)
                     {
@@ -70,10 +70,10 @@ namespace DataSorter
                         if (newData[i] != null) writer.WriteLine();
                     }
                     writer.Close();
-                }
+                }*/
                 //write names of data
                 len = DataNames.Length;
-                newlen = DataNames[0].Length;
+                int newlen = DataNames[0].Length;
                 using (TextWriter writer = File.CreateText(fileName+"names.txt"))
                 {
                     for (int i = 0; i < len; i++)

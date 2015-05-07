@@ -29,39 +29,39 @@ namespace DataSorter
                 DL.ReadSourceParametersForAllCombinetions(ImagesNum, 6);
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    int[,] m = new int[2, matricesNum];
+                    int[,] m = new int[2, 16];
                     m[0, 0] = 0;
-                    m[1, 0] = 1;
+                    m[1, 0] = 5;
                     m[0, 1] = 1;
-                    m[1, 1] = 1;
-                    m[0, 2] = 1;
-                    m[1, 2] = -1;
-                    m[0, 3] = -1;
-                    m[1, 3] = 1;
+                    m[1, 1] = 5;
+                    m[0, 2] = 5;
+                    m[1, 2] = 5;
+                    m[0, 3] = 4;
+                    m[1, 3] = 4;
                     m[0, 4] = 1;
-                    m[1, 4] = -4;
+                    m[1, 4] = 1;
                     m[0, 5] = 2;
-                    m[1, 5] = -3;
-                    m[0, 6] = -2;
-                    m[1, 6] = 4;
-                    m[0, 7] = 2;
-                    m[1, 7] = 5;
-                    m[0, 8] = 3;
-                    m[1, 8] = 4;
-                    m[0, 9] = 3;
-                    m[1, 9] = 5;
-                    m[0, 10] = 3;
-                    m[1, 10] = 7;
-                    m[0, 11] = 3;
-                    m[1, 11] = 11;
-                    m[0, 12] = 5;
-                    m[1, 12] = 13;
-                    m[0, 13] = 7;
-                    m[1, 13] = 13;
-                    m[0, 14] = 7;
-                    m[1, 14] = 17;
-                    m[0, 15] = 13;
-                    m[1, 15] = 17;
+                    m[1, 5] = 2;
+                    m[0, 6] = 1;
+                    m[1, 6] = 2;
+                    m[0, 7] = 1;
+                    m[1, 7] = 3;
+                    m[0, 8] = 0;
+                    m[1, 8] = -1;
+                    m[0, 9] = 0;
+                    m[1, 9] = -2;
+                    m[0, 10] = 0;
+                    m[1, 10] = -3;
+                    m[0, 11] = 0;
+                    m[1, 11] = -4;
+                    m[0, 12] = 1;
+                    m[1, 12] = -1;
+                    m[0, 13] = 2;
+                    m[1, 13] = -2;
+                    m[0, 14] = 1;
+                    m[1, 14] = -2;
+                    m[0, 15] = 1;
+                    m[1, 15] = -3; 
                     IP = new ImageParameterization(ImagesNum, 0, 5 + 8 * matricesNum, true);
                     IP.LoadImages("");
                     IP.Calculate_mN(2);
@@ -72,26 +72,19 @@ namespace DataSorter
                     //IP.AddResortDataAsPercentage(DL.LoadingData, DL.DataLen, DL.ObservationNum);
                     double[][] newData = new double[DL.DataLen.Length][];
                     string[][] newDataNames = new string[1][];
-                   /* for (int i = 0; i < ImagesNum; i++)
+                    newDataNames[0] = new string[IP.ParamCounter];
+                    for (int j = 0; j < (IP.ParamCounter); j++)
                     {
-                        for (int k = i*325; k < ((i+1)*325); k++)
-                        {
-                            newData[k] = new double[IP.ParamCounter + 3];
-                            for (int j = 3; j < (IP.ParamCounter+3); j++)
-                            {
-                                newData[k][j] = IP.TestImageResults[i][j-3];
-                            }
-                            newData[k][0] = i;
-                            newData[k][1] = k - i * 325;
-                            newData[k][2] = DL.FitnessLevel[k];
-                        }
-                    }*/
+                        newDataNames[0][j] = IP.TestImageResultsNames[0][j];
+                    }
+                        DW = new DataWriter(saveFileDialog.FileName);
+                        DW.WriteData(newData, newDataNames);
                         DW = new DataWriter(saveFileDialog.FileName);
                         DW.WriteData(IP.TestImageResults);
                         DW = new DataWriter(saveFileDialog.FileName+".txt");                        
-                        DW.WriteData(IP.Correletion(), 5 + 8 * matricesNum);
+                        DW.WriteData(IP.Correlation(), 5 + 8 * matricesNum);
                         DW = new DataWriter(saveFileDialog.FileName + "Thresh.txt");
-                        DW.WriteData(IP.CorreletionT(0.9), 5 + 8 * matricesNum);
+                        DW.WriteData(IP.CorrelationT(0.9), 5 + 8 * matricesNum);
                 }
             }
         }
